@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actor Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --accent-color: #e50914; /* Dramatic cinematic red */
+            --secondary-bg: #1f1f1f;
+            --muted-text: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(12,12,12,1)), url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1920') no-repeat center center/cover;
+            /* Placeholder image: Replace with your primary dramatic landscape or neutral headshot */
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--muted-text);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #b80710;
+        }
+
+        /* Sections General */
+        section {
+            padding: 5rem 10% 2rem 10%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        /* Gallery / Headshots */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 4px;
+            background-color: var(--secondary-bg);
+            aspect-ratio: 4 / 5; /* Standard headshot ratio */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Showreel / Video */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Resume / Credits Table */
+        .resume-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .resume-category h3 {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        tr {
+            border-bottom: 1px solid #222;
+        }
+
+        td {
+            padding: 1rem 0;
+            vertical-align: top;
+        }
+
+        td.title {
+            font-weight: bold;
+            width: 35%;
+        }
+
+        td.role {
+            color: var(--muted-text);
+            width: 35%;
+        }
+
+        td.production {
+            text-align: right;
+            width: 30%;
+        }
+
+        /* Contact Details & Stats */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .stats-list, .contact-info {
+            list-style: none;
+        }
+
+        .stats-list li, .contact-info li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stats-list li span:first-child, .contact-info li span:first-child {
+            color: var(--muted-text);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 10%;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: 4rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            nav ul { display: none; } /* Simplified for mobile setup */
+            section { padding: 4rem 5% 1rem 5%; }
+            .hero { padding: 0 5%; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+            td.title, td.role, td.production { display: block; width: 100%; text-align: left; padding: 0.2rem 0; }
+            td.production { margin-bottom: 0.8rem; color: var(--muted-text); }
+            tr { border-bottom: 1px solid #333; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Your<span>Name</span></div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#headshots">Headshots</a></li>
+            <li><a href="#showreel">Showreel</a></li>
+            <li><a href="#resume">Credits</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home / Hero Section -->
+    <div id="home" class="hero">
+        <div class="hero-content">
+            <h1>Your Name</h1>
+            <p>Actor | Voiceover Artist | Creative</p>
+            <a href="#contact" class="btn">Book / Inquire</a>
+        </div>
+    </div>
+
+    <!-- Headshots Section -->
+    <section id="headshots">
+        <h2 class="section-title">Headshots & Gallery</h2>
+        <div class="gallery-grid">
+            <!-- Replace placeholder source URLs with your hosted headshot links -->
+            <div class="gallery-item"><img src="headshot1.jpg" alt="Commercial Headshot"></div>
+            <div class="gallery-item"><img src="headshot2.jpg" alt="Smiling Headshot"></div>
+            <div class="gallery-item"><img src="headshot3.jpg" alt="Elegant Headshot"></div>
+            <div class="gallery-item"><img src="headshot4.jpg" alt="Cute Headshot"></div>
+            <div class="gallery-item"><img src="headshot6.jpg" alt="Student Headshot"></div>
+        </div>
+    </section>
+
+    <!-- Showreel Section -->
+    <section id="showreel">
+        <h2 class="section-title">Showreel</h2>
+        <div class="video-container">
+            <!-- Replace the YouTube URL embed code with your own Vimeo or YouTube link -->
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+        <h2 class="section-title">Resume & Credits</h2>
+        
+        <!-- Category: Television -->
+        <div class="resume-category">
+            <h3>Television / Streaming</h3>
+            <table>
+                <tr>
+                    <td class="title">Project Title Alpha</td>
+                    <td class="role">Series Regular</td>
+                    <td class="production">Network / Director</td>
+                </tr>
+                <tr>
+                    <td class="title">Project Title Beta</td>
+                    <td class="role">Guest Star</td>
+                    <td class="production">Production Co.</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Category: Film -->
+        <div class="resume-category">
+            <h3>Film</h3>
+            <table>
+                <tr>
+                    <td class="title">Cinematic Feature Example</td>
+                    <td class="role">Lead</td>
+                    <td class="production">Independent / Dir. Name</td>
+                </tr>
+                <tr>
+                    <td class="title">Short Film Showcase</td>
+                    <td class="role">Supporting</td>
+                    <td class="production">Festival Selection</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Category: Commercials / Voiceover available upon request -->
+    </section>
+
+    <!-- Contact & Stats Section -->
+    <section id="contact">
+        <h2 class="section-title">Contact & Attributes</h2>
+        <div class="contact-container">
+            
+            <!-- Physical Attributes -->
+            <div>
+                <ul class="stats-list">
+                    <li><span>Height:</span> <span>178 cm / 5'10"</span></li>
+                    <li><span>Eyes:</span> <span>Brown</span></li>
+                    <li><span>Hair:</span> <span>Dark Brown</span></li>
+                    <li><span>Languages:</span> <span>English, Korean</span></li>
+                </ul>
+            </div>
+
+            <!-- Contact/Representation Details -->
+            <div>
+                <ul class="contact-info">
+                    <li><span>Representation:</span> <span>Agency Name / Independent</span></li>
+                    <li><span>Email:</span> <span>contact@yourdomain.com</span></li>
+                    <li><span>Location:</span> <span>Seoul, South Korea (Available for travel)</span></li>
+                </ul>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:contact@yourdomain.com" class="btn">Send Email</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Your Name. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
